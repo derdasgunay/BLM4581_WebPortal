@@ -6,6 +6,8 @@ Bu proje ASP.NET Core MVC (.NET 10) ile geliştirilmiş bir web portalıdır. Ş
 
 Veriler henüz veritabanına yazılmaz; uygulama yeniden başlatıldığında kayıtlar sıfırlanır.
 
+### Dönem projesi videoları ve proje planı için [tıklayınız](https://drive.google.com/drive/folders/1sjnD3c2ELqg59nS5YTY-Ri7dV3FrJfgL?usp=sharing)
+
 ## Özellikler
 
 - **Etkinlik listesi** (`/Event`): kayıtları tablo halinde gösterir.
@@ -53,5 +55,3 @@ dotnet watch
    - Etkinlikler: http://localhost:5218/Event
 
 HTTPS profili kullanılıyorsa uygulama `https://localhost:7145` üzerinden de açılır.
-
-# Dönem projesi videoları ve proje planı için [tıklayınız](https://drive.google.com/drive/folders/1sjnD3c2ELqg59nS5YTY-Ri7dV3FrJfgL?usp=sharing)
