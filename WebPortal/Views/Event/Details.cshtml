@@ -1,0 +1,20 @@
+@model WebPortal.Models.Event
+
+<div class="container mt-4">
+    <h2>Etkinlik Detayı</h2>
+    <hr />
+
+    <dl class="row">
+        <dt class="col-sm-3">Etkinlik Başlığı</dt>
+        <dd class="col-sm-9">@Model.Title</dd>
+
+        <dt class="col-sm-3">Açıklama</dt>
+        <dd class="col-sm-9">@Model.Description</dd>
+
+        <dt class="col-sm-3">Kapasite</dt>
+        <dd class="col-sm-9">@Model.Capacity</dd>
+    </dl>
+
+    <a asp-action="Index" class="btn btn-secondary">Listeye Dön</a>
+
+</div>

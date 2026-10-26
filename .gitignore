@@ -3,6 +3,9 @@
 ##
 ## Get latest from `dotnet new gitignore`
 
+# Local notes (not part of the project)
+NOTLAR.md
+
 # dotenv files
 .env
 

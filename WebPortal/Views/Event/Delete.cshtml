@@ -1,0 +1,24 @@
+@model WebPortal.Models.Event
+
+<div class="container mt-4">
+    <h2 class="text-danger">Etkinliği Sil</h2>
+    <hr />
+
+    <div class="alert alert-warning">
+        <strong>Dikkat!</strong> Bu etkinliği kalıcı olarak silmek üzeresiniz. Emin misiniz?
+    </div>
+
+    <dl class="row">
+        <dt class="col-sm-3">Etkinlik Başlığı</dt>
+        <dd class="col-sm-9">@Model.Title</dd>
+
+        <dt class="col-sm-3">Kapasite</dt>
+        <dd class="col-sm-9">@Model.Capacity</dd>
+    </dl>
+
+    <form asp-action="Delete" method="post">
+        <input type="hidden" asp-for="Id" />
+        <button type="submit" class="btn btn-danger">Evet, Sil</button>
+        <a asp-action="Index" class="btn btn-secondary">Vazgeç</a>
+    </form>
+</div>

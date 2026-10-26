@@ -1,0 +1,47 @@
+@model IEnumerable<WebPortal.Models.Event>
+
+<div class="container mt-4">
+    <h2>Etkinlikler</h2>
+    <hr />
+
+    @* TemData mesajı varsa ekranda gösterilir *@
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            @TempData["SuccessMessage"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
+
+    <div class="mb-3">
+        <a asp-action="Create" class= btn btn-primary">Yeni Etkinlik Oluştur</a>
+    </div>
+
+    <table class="table table-stripped table-bordered">
+        <thead class="table-dark">               
+            <tr>
+                <th>ID</th>
+                <th>Etkinlik Başlığı</th>
+                <th>Açıklama</th>
+                <th>Kapasite</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var etkinlik in Model)
+            {
+                <tr>
+                    <td>@etkinlik.Id</td>
+                    <td>@etkinlik.Title</td>
+                    <td>@etkinlik.Description</td>
+                    <td>@etkinlik.Capacity</td>
+                    <td>
+                        <a asp-action="Details" asp-route-id="@etkinlik.Id" class="btn btn-sm btn-info">Detay</a>
+                        <a asp-action="Edit" asp-route-id="@etkinlik.Id" class="btn btn-sm btn-warning">Düzenle</a>
+                        <a asp-action="Delete" asp-route-id="@etkinlik.Id" class="btn btn-sm btn-danger">Sil</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
