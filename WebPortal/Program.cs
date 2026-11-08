@@ -1,7 +1,11 @@
+using Microsoft.EntityFrameworkCore;
+using WebPortal.Data;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.AddDbContext<PortalDbContext>(options =>
+    options.UseNpgsql(builder.Configuration.GetConnectionString("PortalDb")));
 
 var app = builder.Build();
 

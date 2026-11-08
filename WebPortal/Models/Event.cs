@@ -1,17 +1,22 @@
 using System.ComponentModel.DataAnnotations;
-namespace WebPortal.Models;
 
+namespace WebPortal.Models;
 
 public class Event
 {
-    public int Id { get; set;}
+    public int Id { get; set; }
 
-    [Required(ErrorMessage = "Title is required")]
-    [StringLength(100, ErrorMessage = "Title must be less than 100 characters")]
+    [Required(ErrorMessage = "Başlık zorunludur.")]
+    [StringLength(100, ErrorMessage = "Başlık en fazla 100 karakter olabilir.")]
     public string Title { get; set; } = "";
-    
-    public string Description { get; set;} = "";
-    
-    [Range(1, 1000, ErrorMessage = "Capacity must be between 1 and 1000")]
+
+    public string Description { get; set; } = "";
+
+    [Range(1, 1000, ErrorMessage = "Kapasite 1 ile 1000 arasında olmalıdır.")]
     public int Capacity { get; set; }
+
+    [Range(1, int.MaxValue, ErrorMessage = "Kategori seçiniz.")]
+    public int CategoryId { get; set; }
+
+    public Category? Category { get; set; }
 }

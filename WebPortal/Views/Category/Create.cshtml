@@ -1,0 +1,20 @@
+@model WebPortal.Models.Category
+@{
+    ViewData["Title"] = "Yeni Kategori";
+}
+
+<h1>Yeni Kategori Ekle</h1>
+
+<form method="post" asp-action="Create">
+    <div class="mb-3">
+        <label asp-for="Name" class="form-label">Kategori Adı</label>
+        <input asp-for="Name" class="form-control" />
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+    <button type="submit" class="btn btn-primary">Kaydet</button>
+    <a asp-action="Index" class="btn btn-secondary">Vazgeç</a>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

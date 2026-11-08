@@ -1,28 +1,37 @@
+using WebPortal.Data;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc;
 using WebPortal.Models;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace WebPortal.Controllers;
 
 public class EventController : Controller
 {
-    private static List<Event> _events = new();
+    private readonly PortalDbContext _context;
 
-    [HttpGet]
-    public IActionResult Index()
+    public EventController(PortalDbContext context)
     {
-        return View(_events);
+        _context = context;
+    }
+    [HttpGet]
+    public async Task<IActionResult> Index()
+    {
+        var etkinlikler = await _context.Events.ToListAsync();
+        return View(etkinlikler);
     }
 
     [HttpGet]
-    public IActionResult Create()
+    public async Task<IActionResult> Create()
     {
+        await KategorileriDoldurAsync();
         return View();
     }
 
     [HttpGet]
-    public IActionResult Details(int id)
+    public async Task<IActionResult> Details(int id)
     {
-        var etkinlik = _events.FirstOrDefault(e => e.Id == id);
+        var etkinlik = await _context.Events.FirstOrDefaultAsync(e => e.Id == id);
 
         if (etkinlik == null)
         {
@@ -33,22 +42,23 @@ public class EventController : Controller
     }
 
     [HttpGet]
-    public IActionResult Edit(int id)
-    { 
-        var etkinlik = _events.FirstOrDefault(e => e.Id == id);
+    public async Task<IActionResult> Edit(int id)
+    {
+        var etkinlik = await _context.Events.FindAsync(id);
 
         if (etkinlik == null)
         {
             return NotFound();
         }
 
+        await KategorileriDoldurAsync();
         return View(etkinlik);
     }
 
     [HttpGet]
-    public IActionResult Delete(int id)
+    public async Task<IActionResult> Delete(int id)
     {
-        var etkinlik = _events.FirstOrDefault(e => e.Id == id);
+        var etkinlik = await _context.Events.FindAsync(id);
         if (etkinlik == null)
         {
             return NotFound();
@@ -57,25 +67,28 @@ public class EventController : Controller
     }
 
     [HttpPost, ActionName("Delete")]
-    public IActionResult DeleteConfirmed(int id)
+    public async Task<IActionResult> DeleteConfirmed(int id)
     {
-        var etkinlik = _events.FirstOrDefault(e => e.Id == id);
+        var etkinlik = await _context.Events.FindAsync(id);
         if (etkinlik == null)
         {
             return NotFound();
         }
-        _events.Remove(etkinlik);
+        _context.Events.Remove(etkinlik);
+        await _context.SaveChangesAsync();
         TempData["SuccessMessage"] = $"\"{etkinlik.Title}\" etkinliği başarıyla silindi.";
         return RedirectToAction("Index");
     }
 
-    public IActionResult Edit(Event gunceletkinlik)
+    [HttpPost]
+    public async Task<IActionResult> Edit(Event gunceletkinlik)
     {
         if (!ModelState.IsValid)
         {
+            await KategorileriDoldurAsync();
             return View(gunceletkinlik);
         }
-        var mevcut= _events.FirstOrDefault(e => e.Id == gunceletkinlik.Id);
+        var mevcut = await _context.Events.FindAsync(gunceletkinlik.Id);
         if (mevcut == null)
         {
             return NotFound();
@@ -83,25 +96,34 @@ public class EventController : Controller
         mevcut.Title = gunceletkinlik.Title;
         mevcut.Description = gunceletkinlik.Description;
         mevcut.Capacity = gunceletkinlik.Capacity;
+        mevcut.CategoryId = gunceletkinlik.CategoryId;
+        await _context.SaveChangesAsync();
 
         TempData["SuccessMessage"] = $"\"{mevcut.Title}\" etkinliği başarıyla güncellendi.!";
         return RedirectToAction("Index");
     }
 
-
     [HttpPost]
-    public IActionResult Create(Event yeniEtkinlik)
+    public async Task<IActionResult> Create(Event yeniEtkinlik)
     {
-
         if (!ModelState.IsValid)
         {
+            await KategorileriDoldurAsync();
             return View(yeniEtkinlik);
         }
-        
-        yeniEtkinlik.Id = _events.Count + 1;
-        _events.Add(yeniEtkinlik);
+
+        _context.Events.Add(yeniEtkinlik);
+        await _context.SaveChangesAsync();
 
         TempData["SuccessMessage"] = $"\"{yeniEtkinlik.Title}\" etkinliği başarıyla oluşturuldu.!";
         return RedirectToAction("Index");
+    }
+
+    private async Task KategorileriDoldurAsync()
+    {
+        var kategoriler = await _context.Categories
+            .OrderBy(k => k.Name)
+            .ToListAsync();
+        ViewBag.Kategoriler = new SelectList(kategoriler, "Id", "Name");
     }
 }
