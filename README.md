@@ -6,6 +6,8 @@ Bu proje ASP.NET Core MVC (.NET 10) ile geliştirilmiş bir kampüs etkinlik por
 
 Dönem projesi videoları ve proje planı: [Google Drive klasörü](https://drive.google.com/drive/folders/1sjnD3c2ELqg59nS5YTY-Ri7dV3FrJfgL?usp=sharing)
 
+### Dönem projesi videoları ve proje planı için [tıklayınız](https://drive.google.com/drive/folders/1sjnD3c2ELqg59nS5YTY-Ri7dV3FrJfgL?usp=sharing)
+
 ## Özellikler
 
 - **Kategori listesi** (`/Category`): kategorileri tablo halinde gösterir. Veritabanında dört hazır kategori vardır: Teknoloji, Kariyer, Kültür ve Sanat, Spor.
