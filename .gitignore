@@ -5,7 +5,7 @@
 
 # Local notes (not part of the project)
 NOTLAR.md
-
+basliks.md
 # dotenv files
 .env
 
@@ -15,6 +15,7 @@ NOTLAR.md
 *.user
 *.userosscache
 *.sln.docstates
+
 
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
