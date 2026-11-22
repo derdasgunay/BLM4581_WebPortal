@@ -19,4 +19,6 @@ public class Event
     public int CategoryId { get; set; }
 
     public Category? Category { get; set; }
+
+    public List<Registration> Registrations { get; set; } = new();
 }

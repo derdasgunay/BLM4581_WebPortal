@@ -11,6 +11,7 @@ public PortalDbContext(DbContextOptions<PortalDbContext> options) : base(options
     public DbSet<User> Users { get; set; } = default!;
     public DbSet<Category> Categories { get; set; } = default!;
     public DbSet<Event> Events { get; set; } = default!;
+    public DbSet<Registration> Registrations { get; set; } = default!;
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<Category>().HasData(

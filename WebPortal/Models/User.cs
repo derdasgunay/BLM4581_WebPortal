@@ -10,4 +10,6 @@ public class User
     [Required]
     [StringLength(50)]
     public string Name { get; set; } = "";
+
+    public List<Registration> Registrations { get; set; } = new();
 }

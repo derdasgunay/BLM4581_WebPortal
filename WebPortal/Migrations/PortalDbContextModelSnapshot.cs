@@ -91,6 +91,29 @@ namespace WebPortal.Migrations
                     b.ToTable("Events");
                 });
 
+            modelBuilder.Entity("WebPortal.Models.Registration", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("EventId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("EventId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Registrations");
+                });
+
             modelBuilder.Entity("WebPortal.Models.User", b =>
                 {
                     b.Property<int>("Id")
@@ -120,9 +143,38 @@ namespace WebPortal.Migrations
                     b.Navigation("Category");
                 });
 
+            modelBuilder.Entity("WebPortal.Models.Registration", b =>
+                {
+                    b.HasOne("WebPortal.Models.Event", "Event")
+                        .WithMany("Registrations")
+                        .HasForeignKey("EventId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("WebPortal.Models.User", "User")
+                        .WithMany("Registrations")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Event");
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("WebPortal.Models.Category", b =>
                 {
                     b.Navigation("Events");
+                });
+
+            modelBuilder.Entity("WebPortal.Models.Event", b =>
+                {
+                    b.Navigation("Registrations");
+                });
+
+            modelBuilder.Entity("WebPortal.Models.User", b =>
+                {
+                    b.Navigation("Registrations");
                 });
 #pragma warning restore 612, 618
         }
