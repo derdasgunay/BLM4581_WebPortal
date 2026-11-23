@@ -1,31 +1,52 @@
-html {
-  font-size: 14px;
-}
-
-@media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
-}
-
-.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
-}
-
-html {
-  position: relative;
-  min-height: 100%;
+/* ===== Kampüs Etkinlik Portalı teması ===== */
+:root {
+  --lacivert: #14213D;
+  --lacivert-2: #1B2B4F;
+  --turuncu: #F58220;
+  --turuncu-koyu: #9A3F00;
+  --turuncu-acik: #FFF1E3;
+  --zemin: #F6F7FB;
+  --gri-yazi: #5B6477;
 }
 
 body {
-  margin-bottom: 60px;
+  background: var(--zemin);
+  color: var(--lacivert);
+  font-family: 'Inter', system-ui, sans-serif;
 }
 
-.form-floating > .form-control-plaintext::placeholder, .form-floating > .form-control::placeholder {
-  color: var(--bs-secondary-color);
-  text-align: end;
-}
+/* Menü */
+.ep-nav { background: var(--lacivert); min-height: 68px; }
+.ep-nav .navbar-brand { color: #fff; font-weight: 800; }
+.ep-nav .navbar-brand span { color: var(--turuncu); }
+.ep-nav .nav-link { color: #E4E7EF; font-weight: 500; }
+.ep-nav .nav-link:hover { color: #fff; }
 
-.form-floating > .form-control-plaintext:focus::placeholder, .form-floating > .form-control:focus::placeholder {
-  text-align: start;
+/* Butonlar */
+.btn-turuncu { background: var(--turuncu); color: var(--lacivert); font-weight: 700; border: none; }
+.btn-turuncu:hover { background: #E06F10; color: var(--lacivert); }
+.btn-lacivert { background: var(--lacivert); color: #fff; font-weight: 600; border: none; }
+.btn-lacivert:hover { background: #26396A; color: #fff; }
+
+/* Üst başlık bandı */
+.ep-hero { background: var(--lacivert-2); color: #fff; padding: 44px 0 40px; margin-bottom: 32px; }
+.ep-hero p { color: #C9D0E4; margin: 0; }
+
+/* Kartlar */
+.ep-card {
+  background: #fff; border: none; border-radius: 14px; padding: 24px; height: 100%;
+  box-shadow: 0 1px 3px rgba(20,33,61,.08), 0 6px 18px rgba(20,33,61,.06);
 }
+.ep-badge {
+  background: var(--turuncu-acik); color: var(--turuncu-koyu);
+  font-size: 13px; font-weight: 700; padding: 5px 12px; border-radius: 999px; display: inline-block;
+}
+.ep-tarih { color: var(--turuncu-koyu); font-weight: 600; font-size: 14px; }
+.ep-soluk { color: var(--gri-yazi); }
+
+/* Doluluk çubuğu */
+.ep-progress { height: 8px; background: #E4E7EF; border-radius: 999px; }
+.ep-progress .progress-bar { background: var(--turuncu); border-radius: 999px; }
+
+/* Alt bilgi */
+.footer { background: var(--lacivert); color: #AEB7CF !important; border: none !important; }

@@ -1,40 +1,54 @@
 @model WebPortal.Models.Event
 
-<div class="container mt-4">
-    <h2>Yeni Etkinlik Oluştur</h2>
-    <hr />
+<div class="ep-hero">
+    <div class="container">
+        <a asp-action="Index" class="text-decoration-none fw-semibold" style="color: #FFD9B8">← Etkinliklere dön</a>
+        <h1 class="fw-bold mt-2 mb-0">Yeni Etkinlik</h1>
+    </div>
+</div>
 
-    <form asp-action="Create" method="post">
-        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+<div class="container">
+    <div class="ep-card mx-auto" style="max-width: 720px;">
+        <form asp-action="Create" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
-        <div class="mb-3">
-            <label asp-for="Title" class="form-label">Etkinlik Başlığı</label>
-            <input asp-for="Title" class="form-control" />
-            <span asp-validation-for="Title" class="text-danger"></span>
-        </div>
+            <div class="mb-3">
+                <label asp-for="Title" class="form-label fw-semibold">Etkinlik Başlığı</label>
+                <input asp-for="Title" class="form-control" />
+                <span asp-validation-for="Title" class="text-danger"></span>
+            </div>
 
-        <div class="mb-3">
-            <label asp-for="Description" class="form-label">Açıklama</label>
-            <textarea asp-for="Description" class="form-control" rows="3"></textarea>
-            <span asp-validation-for="Description" class="text-danger"></span>
-        </div>
+            <div class="mb-3">
+                <label asp-for="Description" class="form-label fw-semibold">Açıklama</label>
+                <textarea asp-for="Description" class="form-control" rows="3"></textarea>
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
 
-        <div class="mb-3">
-            <label asp-for="Capacity" class="form-label">Kapasite</label>
-            <input asp-for="Capacity" type="number" class="form-control" />
-            <span asp-validation-for="Capacity" class="text-danger"></span>
-        </div>
+            <div class="row">
+                <div class="col-md-7 mb-3">
+                    <label asp-for="Date" class="form-label fw-semibold">Tarih ve Saat</label>
+                    <input asp-for="Date" type="datetime-local" class="form-control" />
+                    <span asp-validation-for="Date" class="text-danger"></span>
+                </div>
+                <div class="col-md-5 mb-3">
+                    <label asp-for="Capacity" class="form-label fw-semibold">Kapasite</label>
+                    <input asp-for="Capacity" type="number" class="form-control" />
+                    <span asp-validation-for="Capacity" class="text-danger"></span>
+                </div>
+            </div>
 
-        <div class="mb-3">
-            <label asp-for="CategoryId" class="form-label">Kategori</label>
-            <select asp-for="CategoryId" asp-items="ViewBag.Kategoriler" class="form-select">
-                <option value="">-- Kategori seçiniz --</option>
-            </select>
-            <span asp-validation-for="CategoryId" class="text-danger"></span>
-        </div>
+            <div class="mb-4">
+                <label asp-for="CategoryId" class="form-label fw-semibold">Kategori</label>
+                <select asp-for="CategoryId" asp-items="ViewBag.Kategoriler" class="form-select">
+                    <option value="">-- Kategori seçiniz --</option>
+                </select>
+                <span asp-validation-for="CategoryId" class="text-danger"></span>
+            </div>
 
-        <button type="submit" class="btn btn-primary">Etkinliği Kaydet</button>
-    </form>
+            <button type="submit" class="btn btn-turuncu">Kaydet</button>
+            <a asp-action="Index" class="btn btn-outline-secondary">Vazgeç</a>
+        </form>
+    </div>
 </div>
 
 @section Scripts {

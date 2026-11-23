@@ -1,0 +1,27 @@
+@{
+    ViewData["Title"] = "Giriş Yap";
+}
+
+<div class="container py-5">
+    <div class="ep-card mx-auto" style="max-width: 440px;">
+        <h1 class="h3 fw-bold mb-1">Tekrar hoş geldin</h1>
+        <p class="ep-soluk mb-4">Hesabınla giriş yap, etkinliklere kayıt ol.</p>
+
+        <form>
+            <div class="mb-3">
+                <label for="eposta" class="form-label fw-semibold">E-posta</label>
+                <input id="eposta" type="email" class="form-control" placeholder="ornek@universite.edu.tr" />
+            </div>
+            <div class="mb-4">
+                <label for="sifre" class="form-label fw-semibold">Şifre</label>
+                <input id="sifre" type="password" class="form-control" placeholder="Şifren" />
+            </div>
+            <button type="button" class="btn btn-turuncu w-100 py-2">Giriş Yap</button>
+        </form>
+
+        <p class="text-center ep-soluk mt-4 mb-0">
+            Hesabın yok mu?
+            <a asp-action="Register" class="fw-bold" style="color: var(--turuncu-koyu)">Kayıt ol</a>
+        </p>
+    </div>
+</div>

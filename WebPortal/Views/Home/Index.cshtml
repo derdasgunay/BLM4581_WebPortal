@@ -1,8 +1,56 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+﻿@model IEnumerable<WebPortal.Models.Event>
+
+@{
+    ViewData["Title"] = "Ana Sayfa";
+    var kategoriler = (IEnumerable<WebPortal.Models.Category>)ViewBag.Kategoriler;
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="ep-hero py-5">
+    <div class="container py-3">
+        <h1 class="display-5 fw-bold mb-3">Kampüsteki etkinlikleri keşfet,<br />tek tıkla kayıt ol.</h1>
+        <p class="fs-5 mb-4">Güncel etkinlikleri kategoriye göre incele ve katılmak istediklerine kayıt ol.</p>
+        <a asp-controller="Event" asp-action="Index" class="btn btn-turuncu btn-lg">Etkinlikleri Gör</a>
+    </div>
+</div>
+
+<div class="container">
+
+    <h2 class="h4 fw-bold mb-3">Kategoriler</h2>
+    <div class="d-flex flex-wrap gap-2 mb-5">
+        @foreach (var kategori in kategoriler)
+        {
+            <a asp-controller="Event" asp-action="Index" class="btn btn-outline-secondary rounded-pill">@kategori.Name</a>
+        }
+    </div>
+
+    <h2 class="h4 fw-bold mb-3">Yaklaşan etkinlikler</h2>
+
+    @if (!Model.Any())
+    {
+        <p class="ep-soluk">Şu an yaklaşan etkinlik bulunmuyor.</p>
+    }
+
+    <div class="row g-4">
+        @foreach (var etkinlik in Model)
+        {
+            var kayitli = etkinlik.Registrations.Count;
+            var yuzde = etkinlik.Capacity > 0 ? kayitli * 100 / etkinlik.Capacity : 0;
+
+            <div class="col-md-6 col-lg-4">
+                <div class="ep-card d-flex flex-column gap-2">
+                    <span class="ep-badge align-self-start">@etkinlik.Category?.Name</span>
+                    <h3 class="h5 fw-bold mb-0">@etkinlik.Title</h3>
+                    <span class="ep-tarih">@etkinlik.Date.ToString("dd.MM.yyyy HH:mm")</span>
+                    <p class="ep-soluk flex-grow-1 mb-2">@etkinlik.Description</p>
+
+                    <div class="progress ep-progress">
+                        <div class="progress-bar" style="width: @yuzde%"></div>
+                    </div>
+                    <small class="ep-soluk">@kayitli / @etkinlik.Capacity kayıtlı</small>
+
+                    <a asp-controller="Event" asp-action="Details" asp-route-id="@etkinlik.Id" class="btn btn-lacivert btn-sm align-self-start mt-2">Detay</a>
+                </div>
+            </div>
+        }
+    </div>
 </div>

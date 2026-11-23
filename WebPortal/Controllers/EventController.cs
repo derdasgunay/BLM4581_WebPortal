@@ -17,7 +17,11 @@ public class EventController : Controller
     [HttpGet]
     public async Task<IActionResult> Index()
     {
-        var etkinlikler = await _context.Events.ToListAsync();
+        var etkinlikler = await _context.Events
+        .Include(e => e.Category)
+        .Include(e => e.Registrations)
+        .OrderBy(e => e.Date)
+        .ToListAsync();
         return View(etkinlikler);
     }
 
@@ -31,7 +35,10 @@ public class EventController : Controller
     [HttpGet]
     public async Task<IActionResult> Details(int id)
     {
-        var etkinlik = await _context.Events.FirstOrDefaultAsync(e => e.Id == id);
+        var etkinlik = await _context.Events
+        .Include(e => e.Category)
+        .Include(e => e.Registrations)
+        .FirstOrDefaultAsync(e => e.Id == id);
 
         if (etkinlik == null)
         {
@@ -95,6 +102,7 @@ public class EventController : Controller
         }
         mevcut.Title = gunceletkinlik.Title;
         mevcut.Description = gunceletkinlik.Description;
+        mevcut.Date = gunceletkinlik.Date;
         mevcut.Capacity = gunceletkinlik.Capacity;
         mevcut.CategoryId = gunceletkinlik.CategoryId;
         await _context.SaveChangesAsync();

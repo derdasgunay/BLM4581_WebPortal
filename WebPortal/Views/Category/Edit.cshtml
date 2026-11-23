@@ -1,17 +1,30 @@
 @model WebPortal.Models.Category
-@{ ViewData["Title"] = "Kategori Düzenle"; }
+@{
+    ViewData["Title"] = "Kategori Düzenle";
+}
 
-<h1>Kategori Düzenle</h1>
-
-<form method="post" asp-action="Edit">
-    <input type="hidden" asp-for="Id" />
-    <div class="mb-3">
-        <label asp-for="Name" class="form-label">Kategori Adı</label>
-        <input asp-for="Name" class="form-control" />
-        <span asp-validation-for="Name" class="text-danger"></span>
+<div class="ep-hero">
+    <div class="container">
+        <a asp-action="Index" class="text-decoration-none fw-semibold" style="color: #FFD9B8">← Kategorilere dön</a>
+        <h1 class="fw-bold mt-2 mb-0">Kategori Düzenle</h1>
     </div>
-    <button type="submit" class="btn btn-primary">Kaydet</button>
-    <a asp-action="Index" class="btn btn-secondary">Vazgeç</a>
-</form>
+</div>
 
-@section Scripts { <partial name="_ValidationScriptsPartial" /> }
+<div class="container">
+    <div class="ep-card mx-auto" style="max-width: 560px;">
+        <form method="post" asp-action="Edit">
+            <input type="hidden" asp-for="Id" />
+            <div class="mb-4">
+                <label asp-for="Name" class="form-label fw-semibold">Kategori Adı</label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <button type="submit" class="btn btn-turuncu">Kaydet</button>
+            <a asp-action="Index" class="btn btn-outline-secondary">Vazgeç</a>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace WebPortal.Models;
 
@@ -11,6 +12,10 @@ public class Event
     public string Title { get; set; } = "";
 
     public string Description { get; set; } = "";
+
+    [Display(Name = "Tarih")]
+    [Column(TypeName = "timestamp without time zone")]
+    public DateTime Date { get; set; }
 
     [Range(1, 1000, ErrorMessage = "Kapasite 1 ile 1000 arasında olmalıdır.")]
     public int Capacity { get; set; }

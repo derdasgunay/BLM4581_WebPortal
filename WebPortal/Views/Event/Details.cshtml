@@ -1,20 +1,62 @@
 @model WebPortal.Models.Event
 
+@{
+    var kayitli = Model.Registrations.Count;
+    var yuzde = Model.Capacity > 0 ? kayitli * 100 / Model.Capacity : 0;
+    var dolu = kayitli >= Model.Capacity;
+}
+
 <div class="container mt-4">
-    <h2>Etkinlik Detayı</h2>
-    <hr />
+    <a asp-action="Index" class="text-decoration-none fw-semibold" style="color: var(--turuncu-koyu)">← Etkinliklere dön</a>
 
-    <dl class="row">
-        <dt class="col-sm-3">Etkinlik Başlığı</dt>
-        <dd class="col-sm-9">@Model.Title</dd>
+    <div class="row g-4 mt-1">
 
-        <dt class="col-sm-3">Açıklama</dt>
-        <dd class="col-sm-9">@Model.Description</dd>
+        <div class="col-lg-8">
+            <div class="ep-card">
+                <span class="ep-badge">@Model.Category?.Name</span>
+                <h1 class="fw-bold mt-3 mb-2">@Model.Title</h1>
+                <div class="ep-tarih mb-3">@Model.Date.ToString("dd.MM.yyyy HH:mm")</div>
+                <p class="mb-0">@Model.Description</p>
+            </div>
+        </div>
 
-        <dt class="col-sm-3">Kapasite</dt>
-        <dd class="col-sm-9">@Model.Capacity</dd>
-    </dl>
+        <div class="col-lg-4">
+            <div class="ep-card d-flex flex-column gap-3">
+                <h2 class="h5 fw-bold mb-0">Kayıt ol</h2>
 
-    <a asp-action="Index" class="btn btn-secondary">Listeye Dön</a>
+                <div class="d-flex justify-content-between">
+                    <span class="ep-soluk">Kategori</span>
+                    <strong>@Model.Category?.Name</strong>
+                </div>
+                <div class="d-flex justify-content-between">
+                    <span class="ep-soluk">Tarih</span>
+                    <strong>@Model.Date.ToString("dd.MM.yyyy HH:mm")</strong>
+                </div> 
+                <div class="d-flex justify-content-between">
+                    <span class="ep-soluk">Kontenjan</span>
+                    <strong>@Model.Capacity kişi</strong>
+                </div>
+                <div class="d-flex justify-content-between">
+                    <span class="ep-soluk">Kayıtlı</span>
+                    <strong>@kayitli kişi</strong>
+                </div>
 
+                <div class="progress ep-progress">
+                    <div class="progress-bar" style="width: @yuzde%"></div>
+                </div>
+
+                @if (dolu)
+                {
+                    <button type="button" class="btn btn-secondary w-100" disabled>Kontenjan dolu</button>
+                }
+                else
+                {
+                    <button type="button" class="btn btn-turuncu w-100">Kayıt Ol</button>
+                }
+
+                <small class="ep-soluk">Kayıt olma özelliği ilerleyen haftalarda eklenecek.</small>
+            </div>
+        </div>
+
+    </div>
 </div>

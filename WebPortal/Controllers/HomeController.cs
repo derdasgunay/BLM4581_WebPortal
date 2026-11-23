@@ -1,14 +1,35 @@
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using WebPortal.Models;
+using Microsoft.EntityFrameworkCore;
+using WebPortal.Data;
 
 namespace WebPortal.Controllers;
 
 public class HomeController : Controller
 {
-    public IActionResult Index()
+    private readonly PortalDbContext _context;
+
+    public HomeController(PortalDbContext context)
     {
-        return View();
+        _context = context;
+    }    
+
+    public async Task<IActionResult> Index()
+    {
+        ViewBag.Kategoriler = await _context.Categories
+            .OrderBy(k => k.Name)
+            .ToListAsync();
+
+        var etkinlikler = await _context.Events
+            .Include(e => e.Category)
+            .Include(e => e.Registrations)
+            .Where(e => e.Date >= DateTime.Now)
+            .OrderBy(e => e.Date)
+            .Take(3)
+            .ToListAsync();
+
+        return View(etkinlikler);
     }
 
     public IActionResult Privacy()
